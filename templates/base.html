@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}
+        {% endblock title %}
+    </title>
+
+     <!-- Google Fonts -->
+     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap" rel="stylesheet">
+
+     <!-- CSS Libraries -->
+     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">  
+    <link rel="icon" type="image/x-icon" href="/image/logo.png">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
+</head>
+<body style="background-color: rgb(38, 76, 91);">
+      <nav class="navbar navbar-expand-sm bg-dark navbar-transparent">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link h2" id="home-tab" data-toggle="tab" href="/" role="tab" aria-controls="home" aria-selected="true" style="color: cornflowerblue;">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link h2" id="category-tab" data-toggle="tab" href="{% url 'home:categories' %}" role="tab" aria-controls="category" aria-selected="false" style="color: cornflowerblue;">Category</a>
+              </li>
+              {% if user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link h2" id="create-tab" data-toggle="tab" href="{% url 'home:createar' %}" role="tab" aria-controls="create" aria-selected="false" style="color: cornflowerblue;">Create</a>
+              </li>
+              {% endif %}
+              <li class="nav-item">
+                <a class="nav-link h2" id="contact" data-toggle="tab" href="{% url 'account:contact' %}" role="tab" aria-controls="contact" aria-selected="false" style="color: rgba(228, 75, 218, 0.514);">Contact</a>
+              </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0" style="padding: 35px 30px 0 35px;" method="GET" action="{% url 'account:search' %}">
+              <input class="form-control mr-sm-2" name="search" type="text" placeholder="Search">
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+            
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+              <div class="header-action-icon-2">
+                  <a href="{% url 'account:myprofile' %}">
+                      <img alt="wowy" src="{% static 'img/icon-user.png' %}">
+                  </a>
+              </div>
+            </li>
+              <div style="padding: 30px 0 0 20px">
+                 <a href="{% url 'account:logout' %}" class="btn btn-info" style="color: darkmagenta;">Log Out</a>
+              </div>
+            {% else %}
+                <div style="padding: 30px 0 0 20px">
+                  <a href="{% url 'account:signin' %}" class="btn btn-info" style="color: darkmagenta;">Log In / Register</a>
+                </div>
+            {% endif %}
+          </div>
+        </nav>
+        
+
+        {% if messages %}
+          <ul class="messages">
+              {% for message in messages %}
+              <li {% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>{{ message }}</li>
+              {% endfor %}
+          </ul>
+        {% endif %}
+  
+    <div class="container">
+
+      {% block content %}
+      {% endblock content %}
+
+      <br>
+      <br>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    
+</body>
+</html>

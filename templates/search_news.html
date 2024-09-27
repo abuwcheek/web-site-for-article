@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}
+     Search page
+{% endblock title %}
+
+
+
+{% block content %}
+
+    <h1 style="text-align: center; color: deepskyblue; padding: 50px; font-family: inherit;">Search results</h1>
+
+
+
+{% for search in searchnews %}
+
+     <div class="card border-primary mb-3" style="padding: 30px; margin: 30px; background-color: azure;">
+          <a href="{% url 'home:detail' search.slug %}" style="color: black;">
+               <img src="{{ search.image.url }}" style="width: 500px; height: 300px;"/>
+               <br>
+               <br>
+          </a>
+          <br>
+          <span><a href="{% url 'home:category' search.category.slug %}" class="btn btn-dark">{{ search.category }}</a></span>
+          <br>
+          <b><a href="{% url 'home:detail' search.slug %}" style="color: black; text-decoration: none;">
+          <h5 class="card-title">{{ search.title }}</h5>
+          </a></b>
+          <p class="card-text">{{ search.subtitle }}</p>
+          <br>
+          <span><b>by: <a href="{% url 'home:personprofile' search.author.username %}" style="text-decoration: none;">{{ search.author }}</a></b></span>
+          <p class="card-text"><h6 class="text-muted"><i class="fas fa-calendar-alt me-1"></i> Data: {{ search.created_at |date:"H:i / d.m.Y" }} | <i class="bi bi-eye-fill"></i>Views: {{ search.views }}</h6></p>
+     </div>
+
+{% endfor %}
+
+
+
+{% endblock content %}

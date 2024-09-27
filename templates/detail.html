@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block title %}
+  Detail new
+{% endblock title %}
+
+{% block content %}
+  
+    <h1 style="text-align: center; color: deepskyblue; padding: 50px; font-family: inherit;">Detail New</h1>
+     <br>
+     <br>
+     <br>
+     <br>
+     <br>
+     <br>
+     
+     <span><a href="{% url 'home:category' detailnews.category.slug %}" class="btn btn-dark">{{ detailnews.category }}</a></span>
+     <br>
+     <br>
+     <h3 style="color: lightgoldenrodyellow;" >{{ detailnews.title }}</h3>
+     <br>
+     <br>
+     <b style="color: gold; font-size: 25px;">Subtitle: </b>
+     <p style="font-weight: bold; font-size: 20px;">{{ detailnews.subtitle }}</p>
+     <br>
+     <img src="{{ detailnews.image.url }}" alt="image" style="width: 900px;">
+     <br>
+     <br>
+     <b style="color: gold; font-size: 25px;">Body: </b>
+     <p style="font-weight: bold; font-size: 20px;">{{ detailnews.body }}</p>
+     <br>
+     <b style="color: gold; font-size: 25px;"><i class="fas fa-calendar-alt me-1"></i>Data: </b><h6 style="color: lightcoral; font-size: 25px;">{{ detailnews.created_at |date:"H:i / d.m.Y / a" }}</h6></i>
+     <b><h6 style="color: lightcoral; font-size: 25px;"><i class="fa fa-eye" aria-hidden="true"></i> Views: {{ detailnews.views }}</h6></b>
+
+     <br>
+     <br>
+     <br>
+     <p><b style="color: gold; font-size: 25px;">Article author: </b></p><b style="font-size: 20px;">
+     <a href="{% url 'home:personprofile' detailnews.author.username %}" class="btn btn-outline-info" style="padding: 15px 70px;">{{ detailnews.author }}</a>
+     <br>
+     <br>
+
+     {% if user.is_authenticated and user == detailnews.author %}
+      <div class="container" style="padding: 0 50px 40px 0;">
+            <a href="{% url 'home:deletear' detailnews.slug %}" class="btn btn-outline-danger" style="padding: 15px 30px;">Delete</a>
+            <a href="{% url 'home:updatear' detailnews.slug %}" class="btn btn-outline-primary" style="padding: 15px 30px;">Update</a>
+      </div>
+     {% endif %}
+
+
+
+<br>
+<br>
+<hr>
+<br>
+<br>
+
+<h1 style="text-align: center; color: deepskyblue; font-family: inherit;">Other News</h1>
+<br>
+<br>
+
+
+
+<div class="card-deck" style="padding: 20px;">
+  {% for new in other_news %}
+    
+     <div class="card">
+        <a href="{% url 'home:detail' new.slug %}" style="color: darkgreen;">
+       <img class="card-img-top" src="{{ new.image.url }}" alt="Card image cap">
+       <div class="card-body">
+      </a>
+        <a href="{% url 'home:detail' new.slug %}" style="text-decoration: none;">
+          <h5 class="card-title">{{ new.title }}</h5>
+        </a>
+         <p class="card-text">{{ new.subtitle | slice:"199" }}</p>
+       </div>
+       <div class="card-footer">
+         <small class="text-muted">{{ new.created_at|date:"H:i / d.m.Y" }} | <i class="fa fa-eye" aria-hidden="true"></i>{{ new.views }}</small>
+       </div>
+       <span><a href="{% url 'home:category' new.category.slug %}" class="btn btn-dark">{{ new.category }}</a></span>
+     </div>
+
+  {% endfor %}
+</div>
+
+{% endblock content %}

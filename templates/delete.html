@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+
+{% block title %}
+     Delete new
+{% endblock title %}
+
+{% block content %}
+  
+     <h1 style="text-align: center; padding: 50px; color: deepskyblue; font-family: inherit;">Rostan ham bu sahifani o'chirib yubormoqchimisiz?</h1>
+     <br>
+     <br>
+     <br>
+     <br>
+     <br>
+     <br>
+     
+
+
+     <h3 style="color: azure;">{{ delete_ar.title }}</h3>
+     <br>
+     <img src="{{ delete_ar.image.url }}" alt="image" style="width: 600px;">
+     <br>
+     <br>
+     <b style="color: gold; font-size: 25px;">Subtitle: </b>
+     <p style="font-weight: bold; font-size: 25px;">{{ delete_ar.subtitle }}</p>
+     <br>
+     <br>
+     <br>
+     <br>
+
+     <div class="container" style="padding: 0 50px 40px 0;">
+          <a href="{% url 'home:delete' delete_ar.slug %}" class="btn btn-outline-danger" style="padding: 15px 30px;">Delete</a>
+          <a href="{% url 'home:myarticles' %}" class="btn btn-outline-primary" style="padding: 15px 30px;">Back to my articles</a>
+          <a href="{% url 'home:detail' delete_ar.slug %}" class="btn btn-outline-secondary" style="padding: 15px 30px;">Back to detail</a>
+     </div>
+
+{% endblock content %}

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+     Person Profile
+{% endblock title %}
+
+
+
+{% block content %}
+
+     <h1 style="color: deepskyblue; padding: 50px; font-family: inherit;">Username: <b style="color: white;">{{ profile.username }}</b></h1>
+     {% if profile.image_user %}
+          <img src="{{ profile.image_user.url }}" alt="Image" style="width: 200px; height: 200px; border-radius: 60%;">
+          <br>
+          <br>          
+     {% else %}
+          <img src="{% static 'img/user.png' %}" alt="" style="width: 200px; height: 200px; border-radius: 60%;">
+          <br>
+          <br>
+          <br>
+     {% endif %}
+     <br>
+     <br>
+     <br>
+
+     {% for arc in articlel %}
+          <div class="card border-primary mb-3" style="padding: 30px; margin: 30px; background-color: azure;">
+               <a href="{% url 'home:detail' arc.slug %}" style="color: black;">
+                    <img src="{{ arc.image.url }}" style="width: 500px; height: 300px;"/>
+                    <br>
+                    <br>
+               </a>
+               <h5 class="card-title"><a href="{% url 'home:detail' arc.slug %}" style="text-decoration: none;">{{ arc.title }}</a></h5>
+               <p class="card-text"><h6 class="text-muted"><i class="fas fa-calendar-alt me-1"></i> Data: {{ arc.created_at |date:"H:i/d.m.Y" }} | <i class="bi bi-eye-fill"></i>Views: {{ arc.views }}</h6></p>
+          </div>
+     {% endfor %}
+
+
+{% endblock content %}

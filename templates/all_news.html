@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+     All news
+{% endblock title %}
+
+
+
+{% block content %}
+
+     {% for new in news %}
+     <div class="card border-primary mb-3" style="padding: 30px; margin: 30px; background-color: azure;">
+          <a href="{% url 'home:detail' new.slug %}">
+               <img src="{{ new.image.url }}" style="width: 500px; height: 300px;"/>
+               <br>
+               <br>
+          </a>
+          <br>
+          <span><a href="{% url 'home:category' new.category.slug %}" class="btn btn-dark">{{ new.category }}</a></span>
+          <b><a href="{% url 'home:detail' new.slug %}" style="color: black; text-decoration: none;">
+          <br>
+          <h5 class="card-title">{{ new.title }}</h5>
+          </a></b>
+          <p class="card-text">{{ new.subtitle }}</p>
+          <br>
+          <span><b style="color: black;">author: <a href="{% url 'home:personprofile' new.author.username %}" style="text-decoration: none;">{{ new.author }}</a></b></span>
+          <p class="card-text"><h6 class="text-muted"><i class="fas fa-calendar-alt me-1"></i> Data: {{ new.created_at |date:"H:i / d.m.Y" }} | <i class="bi bi-eye-fill"></i>Views: {{ new.views }}</h6></p>
+     </div>
+     {% endfor %}
+
+
+{% endblock content %}

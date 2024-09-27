@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block title %}
+     My articles
+{% endblock title %}
+
+
+{% block content %}
+
+
+
+<br>
+<h1 style="text-align: center; color: deepskyblue; padding: 50px; font-family: inherit;">Your Articles</h1>
+     <br>
+     <br>
+     {% for marticle in article_mine %}
+     <div class="card border-primary mb-3" style="padding: 30px; margin: 30px; background-color: azure;">
+          <a href="{% url 'home:deletear' marticle.slug %}" style="color: black;">
+               <img src="{{ marticle.image.url }}" style="width: 500px; height: 300px;"/>
+               <br>
+               <br>
+          </a>
+          <br>
+          <span><a href="" class="btn btn-dark">{{ marticle.category }}</a></span>
+          <b><a href="{% url 'home:detail' marticle.slug %}" style="color: black;">
+          <br>
+          <h5 class="card-title">{{ marticle.title }}</h5>
+          </a></b>
+          <br>
+          <span><b style="color: black;">author: <a href="{% url 'home:personprofile' marticle.author.username %}" >{{ marticle.author }}</a></b></span>
+          <p class="card-text"><h6 class="text-muted"><i class="fas fa-calendar-alt me-1"></i> Data: {{ marticle.created_at |date:"H:i / d.m.Y"}}  | <i class="bi bi-eye-fill"></i>Views: {{ marticle.views }} </h6></p>
+     </div>
+     {% endfor %}
+
+
+{% endblock content %}

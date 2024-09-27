@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+     Update profile
+{% endblock title %}
+
+{% block content %}
+
+<br>
+<h1 style="text-align: center; color: deepskyblue; padding: 50px; font-family: inherit;">Please Update</h1>
+<br>
+<br>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <b>{{ form.as_p }}</b>
+
+        <br>
+        <br>
+        <br>
+        <input type="submit" value="Done" class="btn btn-success">
+        <a href="{% url 'account:myprofile' %}" class="btn btn-secondary">Back</a>
+    </form>
+    <br>
+    
+
+
+<br>
+<br>
+
+
+{% endblock content %}

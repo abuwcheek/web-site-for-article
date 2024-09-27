@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+     Categories
+{% endblock title %}
+
+
+
+{% block content %}
+
+     <h1 style="text-align: center; color: deepskyblue; padding: 50px; font-family: inherit;">Categories</h1>
+     <br>
+     <br>
+     <br>
+
+     <div class="container">  
+          {% for catgry in categories %}
+               <ol type="1">
+                    <a href="{% url 'home:category' catgry.slug %}" class="btn btn-dark" style="color: aliceblue; font-family: Verdana, Geneva, Tahoma, sans-serif;">{{ catgry.name }}</a>
+               </ol>
+          {% endfor %}
+     </div>
+
+
+{% endblock content %}

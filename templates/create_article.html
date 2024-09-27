@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+     Create article
+{% endblock title %}
+
+{% block content %}
+
+     <h1 style="text-align: center; color: deepskyblue; padding: 50px; font-family: inherit;">Create Article</h1>
+    <br>
+    <br>
+       <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <b style="color: black;">{{form.as_p}}</b> 
+        <br>
+        <br>
+        <input type="submit" value="Create article" class="btn btn-success">
+       </form>
+
+       <br>
+       <br>
+       <br>
+
+{% endblock content %}
