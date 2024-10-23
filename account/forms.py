@@ -5,8 +5,8 @@ from PIL import Image
 from .models import User
 
 class CastumAuthForm(AuthenticationForm):
-    username=forms.CharField(widget=TextInput(attrs={'class':'validate', 'placeholder':'username'}))
-    password=forms.CharField(widget=PasswordInput(attrs={'placeholder':'password'}))
+    username = forms.CharField(widget=TextInput(attrs={'class':'validate', 'placeholder':'username'}))
+    password = forms.CharField(widget=PasswordInput(attrs={'placeholder':'password'}))
 
 
 class UserRegisterForm(forms.ModelForm):
@@ -19,8 +19,8 @@ class UserRegisterForm(forms.ModelForm):
 
 
 
-     password=forms.CharField(widget=PasswordInput(attrs={'class':'validate', 'placeholder':'password'}))
-     confirm_password=forms.CharField(widget=PasswordInput(attrs={'class':'validate', 'placeholder':'confirm password'}))
+     password = forms.CharField(widget=PasswordInput(attrs={'class':'validate', 'placeholder':'password'}))
+     confirm_password = forms.CharField(widget=PasswordInput(attrs={'class':'validate', 'placeholder':'confirm password'}))
 
 
      class Meta:
@@ -32,6 +32,8 @@ class UserRegisterForm(forms.ModelForm):
           username = self.cleaned_data.get('username')
           if User.objects.filter(username=username).exists():
                raise forms.ValidationError("Bu username oldin ro'yxatdan o'tgan")
+          elif User.objects.filter(email=email).exists():
+               raise forms.ValidationError("Bu email oldin ro'yxatdan o'tgan")
           return username
 
 
@@ -39,7 +41,7 @@ class UserRegisterForm(forms.ModelForm):
           password = self.cleaned_data.get('password')
           confirm_password = self.cleaned_data.get('confirm_password')
           if password != confirm_password:
-               raise("Parollar bir-biriga mos emas")
+               raise forms.ValidationError("Parollar bir-biriga mos emas")
           return confirm_password
 
      
@@ -64,14 +66,13 @@ class UserRegisterForm(forms.ModelForm):
 class UserUpdateForm(forms.ModelForm):
      first_name=forms.CharField(widget=TextInput(attrs={'class':'validate', 'placeholder':'Abdullo'}))
      last_name=forms.CharField(widget=TextInput(attrs={'class':'validate', 'placeholder':'Istamov'}))
-     email=forms.EmailField(widget=EmailInput(attrs={'class':'validate', 'placeholder':'user123@gmail.com'}))
      phone=forms.CharField(widget=TextInput(attrs={'class':'validate', 'placeholder':'+998937151034'}))
      image_user=forms.ImageField()
 
 
      class Meta:
           model = User
-          fields = ('first_name', 'last_name', 'email', 'phone', 'image_user')     
+          fields = ('first_name', 'last_name', 'phone', 'image_user')     
 
 
 
@@ -92,6 +93,11 @@ class UserUpdateForm(forms.ModelForm):
 
 
 
+# def validate_password_length(form):
+#      if len(form) < 8:
+#           raise ValidationError("Password 8ta belgidan kam bo'lmasligi lozim")
+
+
 class ChangePasswordForm(forms.ModelForm):
      password=forms.CharField(widget=PasswordInput(attrs={'class':'validate', 'placeholder':'password'}))
      confirm_password=forms.CharField(widget=PasswordInput(attrs={'class':'validate', 'placeholder':'confirm password'}))
@@ -100,11 +106,13 @@ class ChangePasswordForm(forms.ModelForm):
           model = User
           fields = ('password', 'confirm_password')
 
-     def clean_confirm_password(request):
-          password = request.cleaned_data.get('password')
-          confirm_password = request.cleaned_data.get('confirm_password')
+     def clean_confirm_password(self):
+          password = self.cleaned_data.get('password')
+          confirm_password = self.cleaned_data.get('confirm_password')
           if password != confirm_password:
-               raise("Parollar bir-biriga mos emas")
+               raise forms.ValidationError("Parollar bir-biriga mos emas")
+          elif len(confirm_password) < 8:
+               raise forms.ValidationError("Password 8ta belgidan kam bo'lmasligi lozim")
           return confirm_password
 
      def save(self, commit=True):

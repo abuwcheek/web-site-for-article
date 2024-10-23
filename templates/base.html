@@ -41,7 +41,7 @@
               </li>
             </ul>
             <form class="form-inline my-2 my-lg-0" style="padding: 35px 30px 0 35px;" method="GET" action="{% url 'account:search' %}">
-              <input class="form-control mr-sm-2" name="search" type="text" placeholder="Search">
+              <input class="form-control mr-sm-2" name="search" type="search" placeholder="Search">
               <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
             
@@ -63,7 +63,6 @@
             {% endif %}
           </div>
         </nav>
-        
 
         {% if messages %}
           <ul class="messages">

@@ -15,6 +15,10 @@
 <h1 style="text-align: center; color: deepskyblue; padding: 50px; font-family: inherit;">Your Articles</h1>
      <br>
      <br>
+
+     <a href="{% url 'account:myprofile' %}" class="btn btn-secondary">Back to my profile</a>
+
+     <br>
      {% for marticle in article_mine %}
      <div class="card border-primary mb-3" style="padding: 30px; margin: 30px; background-color: azure;">
           <a href="{% url 'home:deletear' marticle.slug %}" style="color: black;">
@@ -24,7 +28,7 @@
           </a>
           <br>
           <span><a href="" class="btn btn-dark">{{ marticle.category }}</a></span>
-          <b><a href="{% url 'home:detail' marticle.slug %}" style="color: black;">
+          <b><a href="{% url 'home:detail' marticle.slug %}" style="color: chocolate; text-decoration: none;">
           <br>
           <h5 class="card-title">{{ marticle.title }}</h5>
           </a></b>

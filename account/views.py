@@ -119,7 +119,7 @@ class ChangePasswordView(View):
 
           messages.warning(request, 'Password yangilanmadi')
           context={
-               'password_form':form,
+               'form': password_form,
                }
           return render(request, 'account/change_password.html', context)
 
@@ -154,8 +154,6 @@ class LogoutView(View):
           logout(request)
           messages.warning(request, 'Tizimdan muvaffaqqiyatli chiqtingiz')
           return redirect('home:all')
-
-
 
 
 
@@ -206,7 +204,6 @@ class AboutView(View):
           context = {
                'about': about,
           }
-
           return render(request, 'contact.html', context)
      
 

@@ -22,6 +22,7 @@
      {% endif %}
      <br>
      <br>
+     <a href="{% url 'home:all' %}" class="btn btn-secondary">Back to home</a>
      <br>
 
      {% for arc in articlel %}
@@ -32,7 +33,7 @@
                     <br>
                </a>
                <h5 class="card-title"><a href="{% url 'home:detail' arc.slug %}" style="text-decoration: none;">{{ arc.title }}</a></h5>
-               <p class="card-text"><h6 class="text-muted"><i class="fas fa-calendar-alt me-1"></i> Data: {{ arc.created_at |date:"H:i/d.m.Y" }} | <i class="bi bi-eye-fill"></i>Views: {{ arc.views }}</h6></p>
+               <p class="card-text" style="font-weight: bolder;"><h6 class="text-muted"><i class="fas fa-calendar-alt me-1"></i> Data: {{ arc.created_at |date:"H:i | d.m.Y" }} | <i class="bi bi-eye-fill"></i>Views: {{ arc.views }}</h6></p>
           </div>
      {% endfor %}
 
