@@ -5,8 +5,8 @@ from PIL import Image
 from .models import User
 
 class CastumAuthForm(AuthenticationForm):
-    username = forms.CharField(widget=TextInput(attrs={'class':'validate', 'placeholder':'username'}))
-    password = forms.CharField(widget=PasswordInput(attrs={'placeholder':'password'}))
+    username = forms.CharField(widget=TextInput(attrs={'class':'validate',}))
+    password = forms.CharField(widget=PasswordInput(attrs={}))
 
 
 class UserRegisterForm(forms.ModelForm):
