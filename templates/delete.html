@@ -9,6 +9,7 @@
 
 {% block menu %}
   
+{% if user.is_authenticated %}
 <nav class="navbar navbar-expand-sm bg-dark navbar-transparent">
      <ul class="nav nav-tabs" id="myTab" role="tablist">
        <li class="nav-item">
@@ -17,11 +18,9 @@
        <li class="nav-item">
          <a class="nav-link h2" id="category-tab" data-toggle="tab" href="{% url 'home:categories' %}" role="tab" aria-controls="category" aria-selected="false" style="color: cornflowerblue;">Category</a>
        </li>
-       {% if user.is_authenticated %}
        <li class="nav-item">
          <a class="nav-link h2" id="create-tab" data-toggle="tab" href="{% url 'home:createar' %}" role="tab" aria-controls="create" aria-selected="false" style="color: cornflowerblue;">Create</a>
        </li>
-       {% endif %}
        <li class="nav-item">
          <a class="nav-link h2" id="contact" data-toggle="tab" href="{% url 'account:contact' %}" role="tab" aria-controls="contact" aria-selected="false" style="color: rgba(228, 75, 218, 0.514);">Contact</a>
        </li>
@@ -31,7 +30,6 @@
        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
      </form>
      
-     {% if user.is_authenticated %}
      <li class="nav-item">
        <div class="header-action-icon-2">
            <a href="{% url 'account:myprofile' %}">
@@ -42,13 +40,15 @@
        <div style="padding: 30px 0 0 20px">
           <a href="{% url 'account:logout' %}" class="btn btn-info" style="color: darkmagenta;">Log Out</a>
        </div>
-     {% else %}
-         <div style="padding: 30px 0 0 20px">
-           <a href="{% url 'account:signin' %}" class="btn btn-info" style="color: darkmagenta;">Log In / Register</a>
-         </div>
-     {% endif %}
+
    </div>
  </nav>
+
+{% else %}
+ <div style="padding: 30px 0 0 20px">
+   <a href="{% url 'account:signin' %}" class="btn btn-info" style="color: darkmagenta;">Log In / Register</a>
+ </div>
+{% endif %}
 
 {% endblock menu %}
 

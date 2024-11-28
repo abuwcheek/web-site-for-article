@@ -7,6 +7,10 @@ from account.models import User
 from .form import ArticleForm
 
 
+def before_index(request):
+     return render(request, 'before_index.html')
+
+
 
 def category(request):
      categories = Category.objects.all()

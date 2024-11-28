@@ -1,11 +1,12 @@
 from django.urls import path
-from .views import all_news, detail, category, category_detail, create_article, update_article, delete_article, delete_ar, my_articles, person_profile
+from .views import before_index, all_news, detail, category, category_detail, create_article, update_article, delete_article, delete_ar, my_articles, person_profile
 
 
 
 app_name = "home"
 urlpatterns = [
-     path('', all_news, name='all'),
+     path('', before_index, name='beforeindex'),
+     path('articles/', all_news, name='all'),
      path('categories/', category, name='categories'),
      path('category/<str:slug>/', category_detail, name='category'),
 

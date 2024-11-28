@@ -68,6 +68,7 @@ class UserRegisterForm(forms.ModelForm):
 
 
 class UserUpdateForm(forms.ModelForm):
+     username = forms.CharField(widget=TextInput(attrs={'class':  'validate', 'placeholder': 'username'}))
      first_name=forms.CharField(widget=TextInput(attrs={'class':'validate', 'placeholder':'Abdullo'}))
      last_name=forms.CharField(widget=TextInput(attrs={'class':'validate', 'placeholder':'Istamov'}))
      phone=forms.CharField(widget=TextInput(attrs={'class':'validate', 'placeholder':'+998937151034'}))
@@ -76,7 +77,13 @@ class UserUpdateForm(forms.ModelForm):
 
      class Meta:
           model = User
-          fields = ('first_name', 'last_name', 'phone', 'image_user')     
+          fields = ('username', 'first_name', 'last_name', 'phone', 'image_user')  
+
+     def clean_username(self):
+          username = self.cleaned_data.get('username')
+          if User.objects.filter(username=username).exists():
+               raise forms.ValidationError("Bu username band")
+          return username  
 
 
 

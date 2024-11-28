@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views import View
+from django.core.mail import send_mail
 from django.contrib.auth import login, logout
 from .forms import CastumAuthForm, UserRegisterForm, UserUpdateForm, ChangePasswordForm
 from django.contrib import messages
@@ -7,6 +8,7 @@ from PIL import Image
 from django.db.models import Q
 from .models import User, Contact, About
 from home.models import Article
+from core import settings
 
 
 
@@ -35,6 +37,7 @@ class UserRegisterView(View):
                'form':user_form,
                }
           return render(request, 'account/register.html', context)
+
 
 
 def register(request):
@@ -124,6 +127,7 @@ class ChangePasswordView(View):
           return render(request, 'account/change_password.html', context)
 
 
+
 class LoginView(View):
      def get(self, request):
           if request.user.is_authenticated:
@@ -149,11 +153,12 @@ class LoginView(View):
                return render(request, 'account/login.html', {'form':form})
 
 
+
 class LogoutView(View):
      def get(self, request):
           logout(request)
           messages.warning(request, 'Tizimdan muvaffaqqiyatli chiqtingiz')
-          return redirect('home:all')
+          return redirect('home:beforeindex')
 
 
 
@@ -197,15 +202,13 @@ class ContactView(View):
 
 
 
-
 class AboutView(View):
      def get(self, request):
           about = About.objects.all()
           context = {
                'about': about,
           }
-          return render(request, 'contact.html', context)
-     
+          return render(request, 'contact.html', context)     
 
 
 
@@ -226,4 +229,3 @@ class SearchView(View):
           }
           messages.info(request, 'Siz izlagan xabarlar')
           return render(request, 'search_news.html', context)
-

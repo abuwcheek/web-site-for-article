@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block title %}
+     into to site
+{% endblock title %}
+
+
+{% block content %}
+  
+
+
+
+<h1 style="text-align: center; color: chartreuse; padding: 250px 0 0 0; font-family: inherit;">Siz oldin saytga kirishingiz kerak</h1>
+<br>
+<br>
+<br>
+
+
+<div class="container" style="padding: 0 0 0 400px;">
+     <a href="{% url 'account:signin' %}" class="btn btn-outline-danger" style="padding: 30px 100px; font-family: monospace;">Log In</a>
+</div>
+
+
+
+{% endblock content %}
